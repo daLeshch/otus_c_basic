@@ -1,4 +1,4 @@
 /.gitignore
 not_public/
 build
-/.vscode
+.vscode/
