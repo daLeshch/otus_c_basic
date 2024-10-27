@@ -1,5 +1,12 @@
-cmake_minimum_required(VERSION 3.5.0)
-project(number_guess VERSION 0.1.0 LANGUAGES C CXX)
+cmake_minimum_required(VERSION 3.12)
 
-add_executable(number_guess main.cpp)
+project(number_guess)
 
+add_executable(number_guess
+    main.cpp
+)
+
+set_target_properties(number_guess PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED ON
+)
