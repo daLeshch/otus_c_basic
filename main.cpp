@@ -107,9 +107,12 @@ void display_sorted(const std::string &filename){
     std::sort(records.begin(), records.end(), [](const auto& a, const auto& b) {
         return a.second < b.second; 
     });
-    std::cout << "Records:" << std::endl;
+    std::cout << "Best 3:" << std::endl;
+    int count =0;
     for (const auto& record : records){
+        if (count >= 3) break; 
         std::cout << record.first << std::endl;
+        count += 1;
     }
 }
 
