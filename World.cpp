@@ -44,6 +44,8 @@ World::World(const std::string& worldFilePath) {
 
     bool isCollidable;
 
+
+
     // Здесь не хватает обработки ошибок, но на текущем
     // уровне прохождения курса нас это устраивает
     while (stream.peek(), stream.good()) {
@@ -60,15 +62,9 @@ World::World(const std::string& worldFilePath) {
         // В базовой части задания этот параметр
         stream >> std::boolalpha >> isCollidable;
 
-        // TODO: место для доработки.
-        // Здесь не хватает самого главного - создания
-        // объекта класса Ball со свойствами, прочитанными
-        // выше, и его помещения в контейнер balls
-
-        // После того как мы каким-то образом
-        // сконструируем объект Ball ball;
-        // добавьте его в конец контейнера вызовом
-        // balls.push_back(ball);
+        Color ballColour(red, green, blue);
+        Ball ball(x, y, Velocity(vx, vy), radius, ballColour);
+        balls.push_back(ball);
     }
 }
 
@@ -76,7 +72,7 @@ World::World(const std::string& worldFilePath) {
 void World::show(Painter& painter) const {
     // Рисуем белый прямоугольник, отображающий границу
     // мира
-    painter.draw(topLeft, bottomRight, Color(1, 1, 1));
+    painter.draw(topLeft, bottomRight, Color(255, 255, 255));// Сменила на белый фон, 111 это вроде черный же?
 
     // Вызываем отрисовку каждого шара
     for (const Ball& ball : balls) {
