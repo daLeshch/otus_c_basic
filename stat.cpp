@@ -87,7 +87,7 @@ double Pc90::eval() const {
     std::vector<double> sortedList = list; // 
     std::sort(sortedList.begin(), sortedList.end());
 
-    double rank = 90.0 / 100.0 * (sortedList.size() - 1);
+    double rank = pc_val / 100.0 * (sortedList.size() - 1);
     int lowerIndex = static_cast<int>(rank);
     double lowerValue = sortedList[lowerIndex];
 

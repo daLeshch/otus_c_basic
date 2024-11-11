@@ -26,7 +26,7 @@ private:
 
 class Max : public IStatistics {
 public:
-	Max() : m_max{std::numeric_limits<double>::min()} {
+	Max() : m_max{std::numeric_limits<double>::lowest()} {
 	}
 
 	void update(double next) override;
@@ -73,7 +73,7 @@ private:
 
 class Pc90 : public IStatistics {
 public:
-    Pc90() {}
+    Pc90() : pc_val{90}{}
 
     void update(double next) override;
 
@@ -81,4 +81,5 @@ public:
     const char* name() const override;
 private:
     std::vector<double> list;
+	int pc_val;
 };
