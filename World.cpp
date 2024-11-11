@@ -63,7 +63,7 @@ World::World(const std::string& worldFilePath) {
         stream >> std::boolalpha >> isCollidable;
 
         Color ballColour(red, green, blue);
-        Ball ball(x, y, Velocity(vx, vy), radius, ballColour);
+        Ball ball(x, y, Velocity(Point(vx, vy)), radius, ballColour);
         balls.push_back(ball);
     }
 }
