@@ -1,5 +1,5 @@
-#ifndef DL_LIST_H
-#define DL_LIST_H
+#ifndef SL_LIST_H
+#define SL_LIST_H
 
 #include <iostream>
 #include <stdexcept>
@@ -8,32 +8,31 @@
 
 
 template<typename T>
-class NodeDL {
+class NodeSL {
     public:
-        NodeDL<T>* next;
-        NodeDL<T>* prev;
+        NodeSL<T>* next;
         T data;
 
-        NodeDL(T value):data(value), next(nullptr), prev(nullptr){}
+        NodeSL(T value):data(value), next(nullptr){}
 };
 
 template<typename T>
-class ListDL {
+class ListSL {
     public:
-        ListDL();
+        ListSL();
         void push_back(T value);
         void append(T value);
         void insert(T value, size_t indx);
         void erase(size_t indx);
         size_t size()const;
         void print() const;
-        ~ListDL();
+        ~ListSL();
         void debug_print_all() const;
-        void debug_print_var(NodeDL<T>* var, std::string comment);
+        void debug_print_var(NodeSL<T>* var, std::string comment);
 
     private:
-        NodeDL<T>* head;
-        NodeDL<T>* tail;
+        NodeSL<T>* head;
+        NodeSL<T>* tail;
         size_t list_size;
 };
 
