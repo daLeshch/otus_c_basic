@@ -1,13 +1,11 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
+project(07.homework)
 
-project(06.homework)
+# Добавление Google Test как подмодуля
+add_subdirectory(googletest)
 
-add_executable(containers seqContainer.cpp seqContainer.h dl_list.cpp dl_list.h sl_list.cpp sl_list.h main.cpp)
-set_target_properties(containers PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
+# Укажите файлы исходного кода
+add_executable(containers_tests seqContainer_tests.cpp seqContainer.cpp)
 
-# Добавляем цель для запускa
-add_custom_target(run
-    COMMAND containers
-    DEPENDS containers
-    WORKING_DIRECTORY ${CMAKE_PROJECT_DIR}
-)
+# Привязка к библиотеке Google Test
+target_link_libraries(containers_tests gtest gtest_main pthread)

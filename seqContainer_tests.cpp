@@ -7,15 +7,15 @@ class seqContainerTest : public ::testing::Test {
     seqContainer<T>* container;
 
     void SetUp() override {
-        container = new seqContainer(10)
-    };
+        container = new seqContainer<T>(10);
+    }
 
     void TearDown() override {
         delete container;
     }
 };
 
-TEST_F(seqContainerTest, int_initialization) {
+TEST_F(seqContainerTest<int>, IntInitialization) {
     EXPECT_EQ(container->capacity(), 10);
     EXPECT_EQ(container->size(), 0);
 }
