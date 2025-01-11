@@ -27,6 +27,7 @@ class ListDL {
         void erase(size_t indx);
         size_t size()const;
         void print() const;
+        T& operator [](size_t indx);
         ~ListDL();
         void debug_print_all() const;
         void debug_print_var(NodeDL<T>* var, std::string comment);

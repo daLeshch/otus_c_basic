@@ -118,6 +118,21 @@ void ListSL<T>::print() const {
     std::cout << "\n";
 };
 
+
+template <typename T>
+T &ListSL<T>::operator[](size_t indx) {
+    if (indx >= list_size){
+        throw std::out_of_range("List index is out of range");
+    }
+
+    NodeSL<T>* current = head;
+
+    for (size_t current_indx = 0; current_indx < indx; ++current_indx){
+        current = current->next;
+    }
+    return current->data;
+
+};
 template <typename T>
 void ListSL<T>::debug_print_all() const {
     NodeSL<T>* current = head;
