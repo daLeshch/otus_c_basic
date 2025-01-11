@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(ProjestWithGTest)
+project(07.homework)
 
 if (MSVC)
     # @see https://github.com/google/googletest/blob/master/googletest/README.md
@@ -24,24 +24,25 @@ add_executable(
 
 # Test target
 add_executable(
-    test_list
+    containers_tests
     test/seqContainer_tests.cpp
+    test/dl_list_tests.cpp
 )
 
 # Add src to the include directories for the test target
 target_include_directories(
-    test_list PRIVATE
+    containers_tests PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
 
 # Link test target against gtest libraries
 target_link_libraries(
-    test_list PRIVATE
+    containers_tests PRIVATE
     gtest gtest_main
 )
 
 set_target_properties(containers PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
-set_target_properties(test_list PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
+set_target_properties(containers_tests PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON)
 
 if (MSVC)
     target_compile_options(
@@ -49,7 +50,7 @@ if (MSVC)
         /W4
     )
     target_compile_options(
-        test_list PRIVATE
+        containers_tests PRIVATE
         /W4
     )
 else ()
@@ -58,7 +59,7 @@ else ()
         -Wall -Wextra -pedantic -Werror
     )
     target_compile_options(
-        test_list PRIVATE
+        containers_tests PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
 endif()
