@@ -1,5 +1,4 @@
 // Read files and prints top k word by frequency
-
 #include <algorithm>
 #include <cctype>
 #include <cstdlib>
@@ -10,16 +9,29 @@
 #include <map>
 #include <vector>
 #include <chrono>
+#include <future>
+#include <thread>
+#include <mutex>
 
 const size_t TOPK = 10;
 
 using Counter = std::map<std::string, std::size_t>;
 
 std::string tolower(const std::string &str);
-
 void count_words(std::istream& stream, Counter&);
-
 void print_topk(std::ostream& stream, const Counter&, const size_t k);
+
+Counter process_file(const std::string& filename) {
+    std::ifstream input{filename};
+    if (!input.is_open()) {
+        std::cerr << "Failed to open file " << filename << '\n';
+        return {};
+    }
+
+    Counter local_counter;
+    count_words(input, local_counter);
+    return local_counter;
+}
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -28,14 +40,20 @@ int main(int argc, char *argv[]) {
     }
 
     auto start = std::chrono::high_resolution_clock::now();
-    Counter freq_dict;
+    
+    // Launch async tasks for each file
+    std::vector<std::future<Counter>> futures;
     for (int i = 1; i < argc; ++i) {
-        std::ifstream input{argv[i]};
-        if (!input.is_open()) {
-            std::cerr << "Failed to open file " << argv[i] << '\n';
-            return EXIT_FAILURE;
+        futures.emplace_back(std::async(std::launch::async, process_file, argv[i]));
+    }
+
+    // Merge results from all threads
+    Counter freq_dict;
+    for (auto& future : futures) {
+        auto local_counter = future.get();
+        for (const auto& [word, count] : local_counter) {
+            freq_dict[word] += count;
         }
-        count_words(input, freq_dict);
     }
 
     print_topk(std::cout, freq_dict, TOPK);
